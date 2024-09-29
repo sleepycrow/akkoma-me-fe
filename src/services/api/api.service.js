@@ -113,6 +113,11 @@ const MASTODON_TAG_URL = (name) => `/api/v1/tags/${name}`
 const MASTODON_FOLLOW_TAG_URL = (name) => `/api/v1/tags/${name}/follow`
 const MASTODON_UNFOLLOW_TAG_URL = (name) => `/api/v1/tags/${name}/unfollow`
 const MASTODON_FOLLOWED_TAGS_URL = '/api/v1/followed_tags'
+const AKKOMA_ALBUM_LIST_URL = '/api/v1/akkoma/albums'
+const AKKOMA_ALBUM_URL = id => `/api/v1/akkoma/albums/${id}`
+const AKKOMA_ALBUM_TIMELINE_URL = id => `/api/v1/akkoma/albums/${id}/items`
+const AKKOMA_USER_PUBLIC_ALBUMS_URL = id => `/api/v1/akkoma/accounts/${id}/albums`
+const AKKOMA_OWN_ALBUMS_FOR_STATUS_URL = id => `/api/v1/akkoma/statuses/${id}/albums`
 
 const oldfetch = window.fetch
 
@@ -693,6 +698,7 @@ const fetchTimeline = ({
   until = false,
   userId = false,
   listId = false,
+  albumId = false,
   tag = false,
   withMuted = false,
   replyVisibility = 'all'
@@ -710,7 +716,8 @@ const fetchTimeline = ({
     list: MASTODON_LIST_TIMELINE_URL,
     favorites: MASTODON_USER_FAVORITES_TIMELINE_URL,
     tag: MASTODON_TAG_TIMELINE_URL,
-    bookmarks: MASTODON_BOOKMARK_TIMELINE_URL
+    bookmarks: MASTODON_BOOKMARK_TIMELINE_URL,
+    album: AKKOMA_ALBUM_TIMELINE_URL
   }
   const isNotifications = timeline === 'notifications'
   const params = []
@@ -723,6 +730,8 @@ const fetchTimeline = ({
 
   if (timeline === 'list') {
     url = url(listId)
+  } else if (timeline === 'album') {
+    url = url(albumId)
   }
 
   if (since) {
@@ -743,7 +752,7 @@ const fetchTimeline = ({
   if (timeline === 'public' || timeline === 'publicAndExternal') {
     params.push(['only_media', false])
   }
-  if (timeline !== 'favorites' && timeline !== 'bookmarks') {
+  if (!['favorites', 'bookmarks', 'album'].includes(timeline)) {
     params.push(['with_muted', withMuted])
   }
   if (replyVisibility !== 'all') {
@@ -1622,6 +1631,82 @@ const getFollowRequests = ({ credentials, pagination: savedPagination }) => {
   });
 }
 
+const fetchOwnAlbums = ({ credentials }) => {
+  return promisedRequest({
+    url: AKKOMA_ALBUM_LIST_URL,
+    method: 'GET',
+    credentials
+  })
+}
+
+const fetchOwnAlbumsForStatus = ({ credentials, statusId }) => {
+  return promisedRequest({
+    url: AKKOMA_OWN_ALBUMS_FOR_STATUS_URL(statusId),
+    method: 'GET',
+    credentials
+  })
+}
+
+const addStatusToAlbum = ({ credentials, albumId, statusId }) => {
+  return promisedRequest({
+    url: AKKOMA_ALBUM_TIMELINE_URL(albumId),
+    method: 'POST',
+    credentials,
+    payload: { activity_id: statusId }
+  })
+}
+
+const removeStatusFromAlbum = ({ credentials, albumId, statusId }) => {
+  return promisedRequest({
+    url: AKKOMA_ALBUM_TIMELINE_URL(albumId),
+    method: 'DELETE',
+    credentials,
+    payload: { activity_id: statusId }
+  })
+}
+
+const fetchAlbumInfo = ({ credentials, albumId }) => {
+  return promisedRequest({
+    url: AKKOMA_ALBUM_URL(albumId),
+    method: 'GET',
+    credentials
+  })
+}
+
+const fetchPublicAlbumsByUser = ({ credentials, userId }) => {
+  return promisedRequest({
+    url: AKKOMA_USER_PUBLIC_ALBUMS_URL(userId),
+    method: 'GET',
+    credentials
+  })
+}
+
+const createAlbum = ({ credentials, name, description, isPublic }) => {
+  return promisedRequest({
+    url: AKKOMA_ALBUM_LIST_URL,
+    method: 'POST',
+    credentials,
+    payload: { name, description, is_public: isPublic }
+  })
+}
+
+const updateAlbum = ({ credentials, name, description, isPublic, albumId }) => {
+  return promisedRequest({
+    url: AKKOMA_ALBUM_URL(albumId),
+    method: 'PATCH',
+    credentials,
+    payload: { name, description, is_public: isPublic }
+  })
+}
+
+const deleteAlbum = ({ credentials, albumId }) => {
+  return promisedRequest({
+    url: AKKOMA_ALBUM_URL(albumId),
+    method: 'DELETE',
+    credentials
+  })
+}
+
 export const getMastodonSocketURI = ({ credentials, stream, args = {} }) => {
   return Object.entries({
     ...(credentials
@@ -1861,7 +1946,16 @@ const apiService = {
   followHashtag,
   unfollowHashtag,
   getFollowedHashtags,
-  getFollowRequests
+  getFollowRequests,
+  fetchOwnAlbums,
+  fetchOwnAlbumsForStatus,
+  addStatusToAlbum,
+  removeStatusFromAlbum,
+  fetchAlbumInfo,
+  fetchPublicAlbumsByUser,
+  createAlbum,
+  updateAlbum,
+  deleteAlbum
 }
 
 export default apiService
