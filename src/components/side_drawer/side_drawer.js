@@ -16,7 +16,8 @@ import {
   faCog,
   faInfoCircle,
   faList,
-  faUserTie
+  faUserTie,
+  faFolder
 } from '@fortawesome/free-solid-svg-icons'
 
 library.add(
@@ -32,7 +33,8 @@ library.add(
   faCog,
   faInfoCircle,
   faList,
-  faUserTie
+  faUserTie,
+  faFolder
 )
 
 const SideDrawer = {

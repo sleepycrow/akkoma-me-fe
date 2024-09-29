@@ -10,7 +10,7 @@
     <template #content="{close}">
       <div class="dropdown-menu">
         <button
-          v-if="canMute && !status.thread_muted"
+          v-if="isLoggedIn && !status.thread_muted"
           class="button-default dropdown-item dropdown-item-icon"
           @click.prevent="muteConversation"
         >
@@ -20,7 +20,7 @@
           /><span>{{ $t("status.mute_conversation") }}</span>
         </button>
         <button
-          v-if="canMute && status.thread_muted"
+          v-if="isLoggedIn && status.thread_muted"
           class="button-default dropdown-item dropdown-item-icon"
           @click.prevent="unmuteConversation"
         >
@@ -72,6 +72,17 @@
             fixed-width
             icon="bookmark"
           /><span>{{ $t("status.unbookmark") }}</span>
+        </button>
+        <button
+          v-if="isLoggedIn"
+          class="button-default dropdown-item dropdown-item-icon"
+          @click.prevent="addToAlbum"
+          @click="close"
+        >
+          <FAIcon
+            fixed-width
+            icon="folder"
+          /><span>{{ $t("albums.add_to_album") }}</span>
         </button>
         <button
           v-if="ownStatus && editingAvailable"

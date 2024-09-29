@@ -176,6 +176,12 @@
           :in-profile="true"
           :footer-slipgate="footerRef"
         />
+        <div
+          key="albums"
+          :label="$t('albums.albums')"
+        >
+          <UserPublicAlbumList :user-id="userId" />
+        </div>
       </tab-switcher>
       <div
         :ref="setFooterRef"

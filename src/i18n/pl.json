@@ -102,7 +102,8 @@
         "text_limit": "Limit tekstu",
         "title": "Funkcje",
         "upload_limit": "Limit wysyłania",
-        "who_to_follow": "Propozycje obserwacji"
+        "who_to_follow": "Propozycje obserwacji",
+        "albums": "Albumy"
     },
     "file_type": {
         "audio": "Audio",
@@ -127,6 +128,7 @@
         "flash_fail": "Nie udało się załadować treści flash, zajrzyj do konsoli, by zobaczyć szczegóły.",
         "flash_security": "Zauważ, że może to być potencjalnie niebezpieczne, ponieważ Flash zawiera dowolny kod wykonywalny.",
         "generic_error": "Wystąpił błąd",
+        "generic_error_message": "Wystąpił błąd: {0}",
         "loading": "Ładowanie…",
         "more": "Więcej",
         "optional": "nieobowiązkowe",
@@ -323,7 +325,8 @@
         "twkn": "Znana sieć",
         "twkn_timeline_description": "Wpisy z całej znanej sieci",
         "user_search": "Wyszukiwanie użytkowników",
-        "who_to_follow": "Sugestie obserwacji"
+        "who_to_follow": "Sugestie obserwacji",
+        "albums": "Albumy"
     },
     "notifications": {
         "broken_favorite": "Nieznany wpis, szukam go…",
@@ -1210,5 +1213,16 @@
     "who_to_follow": {
         "more": "Więcej",
         "who_to_follow": "Propozycje obserwacji"
+    },
+    "albums": {
+        "albums": "Albumy",
+        "new": "Nowy album",
+        "add_to_album": "Dodaj do albumu",
+        "name": "Nazwa",
+        "description": "Opis",
+        "public_album": "Publiczny album",
+        "save": "Zapisz",
+        "delete": "Usuń",
+        "delete_confirm": "Na pewno?"
     }
 }

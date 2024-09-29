@@ -9,7 +9,8 @@ import {
   faShareAlt,
   faExternalLinkAlt,
   faHistory,
-  faFilePen
+  faFilePen,
+  faFolder
 } from '@fortawesome/free-solid-svg-icons'
 import {
   faBookmark as faBookmarkReg,
@@ -27,7 +28,8 @@ library.add(
   faExternalLinkAlt,
   faFlag,
   faHistory,
-  faFilePen
+  faFilePen,
+  faFolder
 )
 
 const ExtraButtons = {
@@ -163,6 +165,9 @@ const ExtraButtons = {
     },
     hideRedraftStatusConfirmDialog () {
       this.showingRedraftDialog = false
+    },
+    addToAlbum () {
+      this.$store.dispatch('openAddToAlbumModal', this.status.id)
     }
   },
   computed: {
@@ -178,7 +183,7 @@ const ExtraButtons = {
     canPin () {
       return this.ownStatus && (this.status.visibility === 'public' || this.status.visibility === 'unlisted')
     },
-    canMute () {
+    isLoggedIn () {
       return !!this.currentUser
     },
     canTranslate () {

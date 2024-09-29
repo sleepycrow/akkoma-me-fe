@@ -89,6 +89,7 @@ const defaultState = {
   mediaProxyAvailable: false,
   suggestionsEnabled: false,
   suggestionsWeb: '',
+  albumsAvailable: false,
 
   // Html stuff
   instanceSpecificPanelContent: '',

@@ -102,7 +102,8 @@
         "text_limit": "Text limit",
         "title": "Features",
         "upload_limit": "Upload limit",
-        "who_to_follow": "Who to follow"
+        "who_to_follow": "Who to follow",
+        "albums": "Albums"
     },
     "file_type": {
         "audio": "Audio",
@@ -127,6 +128,7 @@
         "flash_fail": "Failed to load flash content, see console for details.",
         "flash_security": "Note that this can be potentially dangerous since Flash content is still arbitrary code.",
         "generic_error": "An error occured",
+        "generic_error_message": "An error occured: {0}",
         "loading": "Loading…",
         "more": "More",
         "optional": "optional",
@@ -323,7 +325,8 @@
         "twkn": "Known Network",
         "twkn_timeline_description": "Posts from the entire network",
         "user_search": "User Search",
-        "who_to_follow": "Who to follow"
+        "who_to_follow": "Who to follow",
+        "albums": "Albums"
     },
     "notifications": {
         "broken_favorite": "Unknown post, searching for it…",
@@ -1214,5 +1217,16 @@
     "who_to_follow": {
         "more": "More",
         "who_to_follow": "Who to follow"
+    },
+    "albums": {
+        "albums": "Albums",
+        "new": "New album",
+        "add_to_album": "Add to album",
+        "name": "Name",
+        "description": "Description",
+        "public_album": "Public album",
+        "save": "Save",
+        "delete": "Delete",
+        "delete_confirm": "Are you sure?"
     }
 }

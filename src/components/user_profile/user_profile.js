@@ -14,6 +14,7 @@ import {
   faCircleCheck
 } from '@fortawesome/free-solid-svg-icons'
 import FollowedTagCard from '../followed_tag_card/FollowedTagCard.vue'
+import UserPublicAlbumList from '../user_public_album_list/user_public_album_list.vue'
 
 library.add(
   faCircleNotch,
@@ -226,7 +227,8 @@ const UserProfile = {
     TabSwitcher,
     Conversation,
     RichContent,
-    FollowedTagList
+    FollowedTagList,
+    UserPublicAlbumList
   },
   beforeRouteLeave(to, from) {
     this.$store.dispatch('setDisplayBackground', null)

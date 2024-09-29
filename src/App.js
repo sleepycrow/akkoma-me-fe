@@ -14,6 +14,7 @@ import UserReportingModal from './components/user_reporting_modal/user_reporting
 import EditStatusModal from './components/edit_status_modal/edit_status_modal.vue'
 import PostStatusModal from './components/post_status_modal/post_status_modal.vue'
 import StatusHistoryModal from './components/status_history_modal/status_history_modal.vue'
+import AddToAlbumModal from './components/add_to_album_modal/add_to_album_modal.vue'
 import GlobalNoticeList from './components/global_notice_list/global_notice_list.vue'
 import { windowWidth, windowHeight } from './services/window_utils/window_utils'
 import { mapGetters } from 'vuex'
@@ -39,6 +40,7 @@ export default {
     PostStatusModal,
     EditStatusModal,
     StatusHistoryModal,
+    AddToAlbumModal,
     GlobalNoticeList
   },
   data: () => ({
