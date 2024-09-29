@@ -229,7 +229,7 @@ const api = {
     // Timelines
     startFetchingTimeline(
       store,
-      { timeline = "friends", tag = false, userId = false, listId = false },
+      { timeline = "friends", tag = false, userId = false, listId = false, albumId = false },
     ) {
       if (store.state.fetchers[timeline]) return;
 
@@ -238,6 +238,7 @@ const api = {
         store,
         userId,
         listId,
+        albumId,
         tag,
       });
       store.commit("addFetcher", { fetcherName: timeline, fetcher });
@@ -345,6 +346,18 @@ const api = {
       const fetcher = store.state.fetchers.reports;
       if (!fetcher) return;
       store.commit("removeFetcher", { fetcherName: "reports", fetcher });
+    },
+
+    // Albums
+    startFetchingAlbums(store) {
+      if (store.state.fetchers["albums"]) return;
+      const fetcher = store.state.backendInteractor.startFetchingAlbums({ store });
+      store.commit("addFetcher", { fetcherName: "albums", fetcher });
+    },
+    stopFetchingAlbums(store) {
+      const fetcher = store.state.fetchers.albums;
+      if (!fetcher) return;
+      store.commit("removeFetcher", { fetcherName: "albums", fetcher });
     },
 
     getSupportedTranslationlanguages(store) {
